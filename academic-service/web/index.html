@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Staff portal</title>
+  <link rel="stylesheet" href="static/portal.css">
+</head>
+<body>
+  <main class="app">
+    <section class="panel" id="login" style="max-width:460px;margin:8vh auto">
+      <p class="kicker">Staff portal</p>
+      <h1>Sign in</h1>
+      <form id="login-form">
+        <label>Username<input name="username" required></label>
+        <label>Password<input name="password" type="password" required></label>
+        <button>Sign in</button>
+        <p id="status" class="status"></p>
+      </form>
+    </section>
+  </main>
+  <script>
+    const PORTAL_URLS = {
+      teacher: 'teacher/dashboard.html',
+      hod: 'hod/dashboard.html',
+      academic_admin: 'admin/',
+      super_admin: 'admin/',
+      finance_admin: '/admin/',
+      registrar: '/students.html'
+    };
+    document.querySelector('#login-form').addEventListener('submit', async event => {
+      event.preventDefault();
+      const status = document.querySelector('#status');
+      status.textContent = 'Signing in...';
+      try {
+        const response = await fetch('/api/auth/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(Object.fromEntries(new FormData(event.target)))
+        });
+        if (!response.ok) throw new Error(await response.text());
+        const { token, role } = await response.json();
+        localStorage.setItem('staff_token', token);
+        sessionStorage.setItem('staff_token', token);
+        localStorage.setItem('staff_role', role);
+        sessionStorage.setItem('staff_role', role);
+        const destination = PORTAL_URLS[role];
+        if (!destination) throw new Error(`No workspace is configured for the "${role}" role.`);
+        location.href = destination;
+      } catch (error) {
+        status.textContent = error.message;
+      }
+    });
+  </script>
+</body>
+</html>

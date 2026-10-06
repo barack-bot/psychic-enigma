@@ -1,0 +1,7 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Teacher dashboard</title><link rel="stylesheet" href="../static/portal.css"></head><body>
+  <script>
+    if (!sessionStorage.getItem('staff_token')) {
+      location.href = '../index.html';
+    }
+  </script>
+  <main class="app"><section id="workspace" hidden><header class="top"><div><p class="kicker">Teacher workspace</p><h1>Academic dashboard</h1></div><button id="logout" class="quiet">Sign out</button></header><div class="grid"><article class="panel"><h2>Subjects</h2><div id="subjects"></div></article><article class="panel"><h2>My classes</h2><div id="classes"></div></article><article class="panel wide"><h2>Assessments</h2><div id="assessments"></div><a class="button" href="enter-marks.html">Enter marks</a></article><article class="panel wide"><h2>Draft and rejected marks</h2><div id="marks"></div></article></div></section></main><script src="../static/staff.js"></script></body></html>

@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>HOD dashboard</title>
+  <link rel="stylesheet" href="../static/portal.css">
+</head>
+<body>
+  <script>
+    if (!sessionStorage.getItem('staff_token')) {
+      location.href = '../index.html';
+    }
+  </script>
+  <main class="app">
+    <section id="workspace" hidden>
+      <header class="top">
+        <div>
+          <p class="kicker">Head of department</p>
+          <h1>Review dashboard</h1>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px;">
+          <a class="quiet button" href="../index.html">Portal</a>
+          <button id="logout" class="quiet">Sign out</button>
+        </div>
+      </header>
+      <section class="panel">
+        <h2>Submitted marks</h2>
+        <div id="marks"></div>
+      </section>
+    </section>
+  </main>
+  <script src="../static/staff.js"></script>
+  <script src="dashboard.js"></script>
+</body>
+</html>

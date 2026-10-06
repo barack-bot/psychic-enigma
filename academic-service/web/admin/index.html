@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Academic administration</title>
+  <link rel="stylesheet" href="../static/portal.css">
+</head>
+<body>
+  <main class="app">
+    <section id="workspace" hidden>
+      <header class="top">
+        <h1>Academic administration</h1>
+        <button id="logout" class="quiet">Sign out</button>
+      </header>
+      <div class="grid">
+        <article class="panel">
+          <h2>Department</h2>
+          <form data-path="departments"><input name="name" placeholder="Name" required><button>Create</button></form>
+        </article>
+        <article class="panel">
+          <h2>Course level</h2>
+          <form data-path="levels"><input name="name" placeholder="Name" required><input name="total_terms" type="number" min="1" placeholder="Terms" required><button>Create</button></form>
+        </article>
+        <article class="panel">
+          <h2>Course</h2>
+          <form data-path="courses"><input name="name" placeholder="Name" required><input name="level_id" type="number" placeholder="Level ID" required><input name="department_id" type="number" placeholder="Department ID"><button>Create</button></form>
+        </article>
+        <article class="panel">
+          <h2>Academic year</h2>
+          <form data-path="years"><input name="year_label" placeholder="2026/2027" required><input name="start_date" type="date" required><input name="end_date" type="date" required><button>Create</button></form>
+        </article>
+        <article class="panel">
+          <h2>Term</h2>
+          <form data-path="terms"><input name="academic_year_id" type="number" placeholder="Year ID" required><input name="term_number" type="number" min="1" max="3" placeholder="Term" required><input name="name" placeholder="Term name" required><input name="starts_on" type="date" required><input name="ends_on" type="date" required><button>Create</button></form>
+        </article>
+        <article class="panel">
+          <h2>Staff user</h2>
+          <form data-path="staff"><input name="name" placeholder="Name" required><input name="username" placeholder="Username" required><input name="password" type="password" minlength="8" placeholder="Temporary password" required><select name="role"><option>teacher</option><option>hod</option><option>registrar</option><option>academic_admin</option><option>finance_admin</option><option>super_admin</option></select><input name="department_id" type="number" placeholder="Department ID"><button>Create</button></form>
+        </article>
+        <article class="panel">
+          <h2>Subject</h2>
+          <form id="subject-form"><input name="name" placeholder="Subject name" required><input name="code" placeholder="Subject code"><input name="department_id" type="number" placeholder="Department ID"><button>Create subject</button></form>
+        </article>
+        <article class="panel">
+          <h2>Class offering</h2>
+          <form id="class-form" data-path="classes"><input id="class-course" name="course_id" required><input id="class-term" name="academic_term_id" required><input name="name" placeholder="Class name" required><input name="capacity" type="number" min="1" placeholder="Capacity"><button>Create class</button></form>
+        </article>
+        <article class="panel">
+          <h2>Class subject</h2>
+          <form id="class-subject-form"><select id="class-subject-class" name="class_offering_id" required></select><select id="class-subject-subject" name="subject_id" required></select><select id="class-subject-teacher" name="teacher_id"></select><button>Add subject</button></form>
+        </article>
+        <article class="panel">
+          <h2>Enroll student for a term</h2>
+          <input id="student-search" placeholder="Search student by name or admission no." style="margin-bottom:8px;">
+          <div id="student-search-results" style="margin-bottom:10px;"></div>
+          <form id="enroll-form">
+            <input name="student_id" type="number" placeholder="Student ID" required>
+            <select id="enroll-term" name="academic_term_id" required></select>
+            <select id="enroll-class" name="class_offering_id"></select>
+            <button>Enroll</button>
+          </form>
+        </article>
+        <article class="panel wide">
+          <h2>Staff accounts</h2>
+          <div class="table-wrap"><table id="staff-table"><thead><tr><th>ID</th><th>Name</th><th>Email</th><th>Role</th><th>Department</th><th>Status</th><th>Actions</th></tr></thead><tbody></tbody></table></div>
+        </article>
+        <article class="panel wide">
+          <h2>Class offerings</h2>
+          <div class="table-wrap"><table id="classes-table"><thead><tr><th>ID</th><th>Name</th><th>Course ID</th><th>Term ID</th><th>Capacity</th><th>Subjects</th></tr></thead><tbody></tbody></table></div>
+        </article>
+        <article class="panel wide">
+          <h2>Class subject assignments</h2>
+          <div class="table-wrap"><table id="class-subjects-table"><thead><tr><th>ID</th><th>Subject ID</th><th>Teacher</th></tr></thead><tbody></tbody></table></div>
+        </article>
+      </div>
+      <p id="message" class="status"></p>
+    </section>
+  </main>
+  <script src="index.js"></script>
+</body>
+</html>

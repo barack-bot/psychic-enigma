@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Enter marks</title>
+  <link rel="stylesheet" href="../static/portal.css">
+</head>
+<body>
+  <script>
+    if (!sessionStorage.getItem('staff_token')) {
+      location.href = '../index.html';
+    }
+  </script>
+  <main class="app">
+    <header class="top">
+      <div>
+        <p class="kicker">Teacher workspace</p>
+        <h1>Mark sheet</h1>
+        <p>Select a class and assessment, then enter marks for the enrolled roster.</p>
+      </div>
+      <a class="quiet button" href="dashboard.html">Dashboard</a>
+    </header>
+    <section class="panel">
+      <div class="grid">
+        <label>Class offering<select id="class-select" required></select></label>
+        <label>Assessment<select id="assessment-select" required></select></label>
+      </div>
+      <details class="panel" style="margin-top:18px">
+        <summary><strong>Create an assessment for this class</strong></summary>
+        <form id="assessment-form" style="margin-top:14px">
+          <div class="grid">
+            <label>Subject<select id="assessment-subject" required></select></label>
+            <label>Type<select name="assessment_type"><option>CAT</option><option>EXAM</option><option>ASSIGNMENT</option><option>PRACTICAL</option></select></label>
+            <label>Name<input name="name" placeholder="e.g. CAT 1" required></label>
+            <label>Max score<input name="max_score" type="number" min="1" step="0.01" required></label>
+          </div>
+          <button>Create assessment</button>
+        </form>
+      </details>
+      <div id="roster"></div>
+      <p id="status" class="status"></p>
+    </section>
+  </main>
+  <script src="../static/staff.js"></script>
+  <script src="enter-marks.js"></script>
+</body>
+</html>
