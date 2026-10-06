@@ -1,0 +1,10 @@
+go 1.27
+
+use (
+	./academic-service
+	./fees-service
+	./intake-service
+	./local-runner
+	./shared
+	./web
+)

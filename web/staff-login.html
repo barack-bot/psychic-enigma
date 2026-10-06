@@ -1,0 +1,213 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Staff and Admin Portal</title>
+    <style>
+      :root {
+        --ink: #2b1a1c;
+        --muted: #6d5b5e;
+        --purple: #7b1e2b;
+        --deep: #4d101c;
+        --paper: #fcfaf7;
+        --line: #e7dedd;
+        --lime: #b8c987;
+      }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        font-family: Manrope, Arial, sans-serif;
+        background: linear-gradient(180deg, #f7f2f1 0%, #fcfaf7 100%);
+        color: var(--ink);
+      }
+      .wrap {
+        max-width: 1180px;
+        margin: 0 auto;
+        padding: 48px 20px 72px;
+      }
+      .topbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 16px;
+        margin-bottom: 28px;
+      }
+      .brand {
+        font-weight: 800;
+        font-size: 0.8rem;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: var(--purple);
+      }
+      .home {
+        color: var(--purple);
+        text-decoration: none;
+        font-weight: 700;
+      }
+      h1 {
+        margin: 0 0 12px;
+        font-size: clamp(2.3rem, 4vw, 3.4rem);
+        line-height: 1.1;
+        color: var(--deep);
+      }
+      .subtitle {
+        max-width: 760px;
+        color: var(--muted);
+        font-size: 1.05rem;
+        margin: 0 0 32px;
+        line-height: 1.7;
+      }
+      .grid {
+        display: grid;
+        grid-template-columns: 1.2fr 0.8fr;
+        gap: 22px;
+        align-items: start;
+      }
+      .card {
+        background: #fff;
+        border: 1px solid var(--line);
+        border-radius: 18px;
+        box-shadow: 0 18px 40px rgba(43, 26, 28, 0.06);
+        padding: 24px;
+      }
+      .eyebrow {
+        display: inline-block;
+        padding: 6px 10px;
+        background: rgba(123, 30, 43, 0.08);
+        border-radius: 999px;
+        color: var(--purple);
+        font-size: 0.7rem;
+        font-weight: 800;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        margin-bottom: 12px;
+      }
+      h2 {
+        margin: 0 0 12px;
+        font-size: 1.5rem;
+        color: var(--deep);
+      }
+      p {
+        margin: 0 0 18px;
+        color: var(--muted);
+        line-height: 1.7;
+      }
+      form {
+        display: grid;
+        gap: 16px;
+      }
+      label {
+        display: grid;
+        gap: 8px;
+        font-size: 0.74rem;
+        font-weight: 800;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--muted);
+      }
+      input {
+        width: 100%;
+        padding: 12px 14px;
+        border: 1px solid var(--line);
+        background: #fffaf5;
+        border-radius: 10px;
+        font: inherit;
+        color: var(--ink);
+      }
+      .button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 48px;
+        background: var(--purple);
+        color: #fff;
+        border: none;
+        border-radius: 10px;
+        padding: 0 18px;
+        font: 800 0.76rem Manrope, Arial, sans-serif;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        cursor: pointer;
+      }
+      .button.secondary {
+        background: transparent;
+        color: var(--deep);
+        border: 1px solid var(--line);
+      }
+      .status {
+        min-height: 20px;
+        margin: 0;
+        color: var(--purple);
+        font-size: 0.92rem;
+      }
+      .links {
+        display: grid;
+        gap: 16px;
+      }
+      .route-card {
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        background: #fffaf5;
+        padding: 18px;
+      }
+      .route-card h3 {
+        margin: 0 0 8px;
+        font-size: 1.1rem;
+        color: var(--deep);
+      }
+      .route-card a {
+        display: inline-block;
+        margin-top: 12px;
+        color: var(--purple);
+        font-weight: 800;
+      }
+      @media (max-width: 800px) {
+        .grid { grid-template-columns: 1fr; }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="wrap">
+      <div class="topbar">
+        <div class="brand">Kitutu Chache TVC</div>
+        <a class="home" href="/">Back to site</a>
+      </div>
+
+      <h1>Staff and admin access</h1>
+      <p class="subtitle">Use your school credentials to open your assigned workspace and continue with academic or finance operations.</p>
+
+      <div class="grid">
+        <section class="card">
+          <div class="eyebrow">Sign in</div>
+          <h2>Staff portal login</h2>
+          <p>Use the form below to sign in with your staff or administrator account.</p>
+          <form id="staff-login-form">
+            <label>Username<input name="username" autocomplete="username" required></label>
+            <label>Password<input name="password" type="password" autocomplete="current-password" required></label>
+            <button class="button" type="submit">Continue</button>
+            <p id="login-status" class="status" role="status"></p>
+          </form>
+        </section>
+
+        <aside class="links">
+          <section class="card route-card">
+            <div class="eyebrow">Public admissions</div>
+            <h3>Application form</h3>
+            <p>Applicant-facing form for a new admission request. This is separate from the student register.</p>
+            <a href="/intake-form.html">Open admissions application</a>
+          </section>
+
+          <section class="card route-card">
+            <div class="eyebrow">Student portal</div>
+            <h3>Student access</h3>
+            <p>Sign in using ID number and password to view fees, statements and account updates.</p>
+            <a href="/portal/">Open student portal</a>
+          </section>
+        </aside>
+      </div>
+    </main>
+
+    <script src="assets/staff-login.js"></script>
+  </body>
+</html>

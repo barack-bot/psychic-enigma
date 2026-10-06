@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kitutu Chache TVC | Home</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Manrope:wght@400;600;800&display=swap" rel="stylesheet">
+    <style>
+        * { box-sizing: border-box; }
+        :root {
+            --ink:#2b1a1c; --muted:#75666a; --purple:#7b1e2b; --deep:#4d101c; --lilac:#f5e9e8;
+            --paper:#fcfaf7; --line:#e7dedd; --lime:#b8c987;
+        }
+        html { scroll-behavior:smooth; }
+        body { margin:0; background:var(--paper); color:var(--ink); font-family:Manrope, sans-serif; }
+        a { color:inherit; text-decoration:none; }
+        img { max-width:100%; display:block; }
+        .container { max-width:1180px; margin:0 auto; padding-left:5vw; padding-right:5vw; }
+        .section { padding:72px 0; }
+        .site-header {
+            position: sticky; top:0; z-index:50;
+            background: rgba(252,250,247,0.96); backdrop-filter: blur(10px);
+            border-bottom:1px solid var(--line);
+        }
+        .header-inner {
+            display:flex; align-items:center; justify-content:space-between; min-height:92px; gap:18px;
+        }
+        .brand { display:flex; align-items:center; gap:12px; }
+        .brand-logo { width:52px; height:52px; border-radius:50%; object-fit:cover; box-shadow:0 2px 8px rgba(0,0,0,0.12); }
+        .brand strong { display:block; font-size:15px; }
+        .brand small { display:block; color:var(--muted); font-size:10px; letter-spacing:1px; font-weight:800; text-transform:uppercase; }
+        nav {
+            display:flex; align-items:center; justify-content:flex-end; gap:16px; flex-wrap:wrap;
+            color:var(--muted); font-size:11px; font-weight:800;
+        }
+        nav a:hover { color:var(--purple); }
+        .nav-button {
+            display:inline-flex; align-items:center; justify-content:center; min-height:42px;
+            padding:0 16px; border-radius:4px; background:var(--deep); color:#fff;
+        }
+        .nav-button:hover { background:var(--purple); color:#fff; }
+        h1, h2, h3 { font-family:"DM Serif Display", Georgia, serif; font-weight:400; }
+        .eyebrow { margin:0 0 14px; color:var(--purple); font-size:10px; letter-spacing:2.4px; font-weight:800; text-transform:uppercase; }
+        .button {
+            display:inline-flex; align-items:center; justify-content:center; min-height:48px; padding:0 22px;
+            border-radius:4px; font:800 11px Manrope, sans-serif; text-transform:uppercase; letter-spacing:0.04em;
+        }
+        .button.primary { background:var(--purple); color:#fff; }
+        .button.primary:hover { background:var(--deep); }
+        .button.secondary {
+            border:1px solid rgba(255,255,255,0.5); background:transparent; color:#fff;
+        }
+        .button.secondary:hover { background:rgba(255,255,255,0.08); }
+
+        .hero {
+            position: relative; height: 620px; overflow:hidden; color:#fff;
+        }
+        .hero .slides { position:absolute; inset:0; }
+        .hero .slide {
+            position:absolute; inset:0; background-size:cover; background-position:center; opacity:0;
+            transform:scale(1.05); transition:opacity 1.2s ease, transform 6s ease;
+        }
+        .hero .slide.active { opacity:1; transform:scale(1); }
+        .hero .overlay {
+            position:absolute; inset:0; background:linear-gradient(rgba(43,26,28,0.78), rgba(43,26,28,0.84)); z-index:2;
+        }
+        .hero .hero-content {
+            position:relative; z-index:3; display:flex; flex-direction:column; justify-content:center; height:100%;
+        }
+        .hero h1 {
+            margin:0; max-width:720px; color:#fff; font-size:clamp(40px, 5vw, 70px); line-height:1.08;
+        }
+        .hero h1 em { color:var(--lime); font-style:normal; }
+        .hero .hero-copy { max-width:540px; margin:24px 0 30px; color:#e5dfe0; line-height:1.8; }
+        .hero-cta { display:flex; gap:14px; flex-wrap:wrap; }
+        .hero .arrow {
+            position:absolute; z-index:4; top:50%; transform:translateY(-50%);
+            width:46px; height:46px; border:1px solid rgba(255,255,255,0.35); border-radius:50%;
+            background: rgba(255,255,255,0.12); color:#fff; font-size:22px; cursor:pointer;
+        }
+        .hero .arrow.prev { left:20px; }
+        .hero .arrow.next { right:20px; }
+        .hero .dots {
+            position:absolute; z-index:4; left:50%; bottom:22px; transform:translateX(-50%);
+            display:flex; gap:10px;
+        }
+        .hero .dots button {
+            width:11px; height:11px; border-radius:50%; border:1px solid rgba(255,255,255,0.75); background:transparent; cursor:pointer;
+        }
+        .hero .dots button.active { background: var(--lime); border-color: var(--lime); }
+
+        .info-grid {
+            display:grid; grid-template-columns:repeat(3, minmax(0,1fr)); gap:18px; margin-top:28px;
+        }
+        .card {
+            background:#fff; border:1px solid var(--line); padding:24px;
+        }
+        .card h3 { margin:0 0 12px; font-size:26px; }
+        .card p, .card li { color:var(--muted); font-size:12px; line-height:1.8; }
+        .card ul { list-style:none; padding:0; margin:0; display:grid; gap:8px; }
+        .card li::before { content:"+"; color:var(--purple); margin-right:8px; font-weight:800; }
+
+        .stats-strip {
+            display:grid; grid-template-columns:repeat(4, minmax(0,1fr)); gap:18px;
+        }
+        .stat-card {
+            background:#fff; border:1px solid var(--line); padding:26px 20px; text-align:center;
+        }
+        .stat-number {
+            font-family:"DM Serif Display", Georgia, serif; font-size:clamp(26px, 3vw, 42px); line-height:1;
+            color:var(--purple); margin-bottom:10px;
+        }
+        .stat-card p { margin:0; color:var(--muted); font-size:12px; line-height:1.7; }
+
+        .split { display:grid; grid-template-columns:1.2fr 0.8fr; gap:20px; }
+        .mini-grid { display:grid; grid-template-columns:repeat(3, minmax(0,1fr)); gap:18px; }
+        .mini-card {
+            background:#fff; border:1px solid var(--line); padding:22px; min-height:180px;
+        }
+        .mini-card h3 { margin:0 0 12px; font-size:24px; }
+        .mini-card p { margin:0; color:var(--muted); font-size:12px; line-height:1.8; }
+
+        .cta-box {
+            background: linear-gradient(135deg, #fff, #f8efef);
+            border:1px solid var(--line); padding:26px; display:flex; align-items:center; justify-content:space-between; gap:16px;
+        }
+        .cta-box h3 { margin:0; font-size:28px; }
+        .cta-box p { margin:0; color:var(--muted); }
+
+        .site-footer {
+            border-top:1px solid var(--line); margin-top:40px; padding:24px 0 30px;
+        }
+        .footer-grid {
+            display:grid; grid-template-columns:1.5fr 1.2fr 0.9fr; gap:18px; color:var(--muted); font-size:10px; line-height:1.8;
+        }
+        .footer-links { display:flex; flex-direction:column; gap:4px; }
+        .footer-links a { color:var(--purple); }
+
+        @media (max-width: 900px) {
+            .header-inner { flex-wrap:wrap; justify-content:center; padding:14px 0; }
+            nav { justify-content:center; }
+            nav a { white-space:nowrap; }
+            .hero { height: 500px; }
+            .info-grid, .stats-strip, .split, .mini-grid, .footer-grid { grid-template-columns:1fr; }
+            .cta-box { flex-direction:column; align-items:flex-start; }
+        }
+    </style>
+</head>
+<body>
+    <header class="site-header">
+        <div class="container header-inner">
+            <a href="/" class="brand">
+                <img class="brand-logo" src="/assets/logo.svg" alt="Kitutu Chache TVC crest">
+                <span>
+                    <strong>Kitutu Chache</strong>
+                    <small>Technical & Vocational College</small>
+                </span>
+            </a>
+            <nav>
+                <a href="about.html">About</a>
+                <a href="courses.html">Courses</a>
+                <a href="admissions.html">Admissions</a>
+                <a href="faq.html">FAQ</a>
+                <a href="news.html">News</a>
+                <a href="/staff/">Portals</a>
+                <a href="/intake-form.html" class="nav-button">Apply</a>
+                <a href="/intake-form.html" class="nav-button">Student Intake</a>
+                <a href="/portal/" class="nav-button">Student Portal</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero" id="hero-slider">
+            <div class="slides" id="hero-slides"></div>
+            <div class="overlay"></div>
+            <div class="container hero-content">
+                <p class="eyebrow" style="color: var(--lime);">Welcome to Kitutu Chache TVC</p>
+                <h1>A Centre of Excellence in <em>Research and Skills</em> Training</h1>
+                <p class="hero-copy">We equip students with practical, industry-aligned skills that open doors to employment, enterprise and further learning.</p>
+                <div class="hero-cta">
+                    <a href="courses.html" class="button primary">Explore Programmes</a>
+                    <a href="admissions.html" class="button secondary">Apply Now</a>
+                </div>
+            </div>
+            <button class="arrow prev" aria-label="Previous slide">&#8249;</button>
+            <button class="arrow next" aria-label="Next slide">&#8250;</button>
+            <div class="dots" id="hero-dots"></div>
+        </section>
+
+        <section class="container section" style="padding-top:48px;">
+            <div class="info-grid">
+                <article class="card">
+                    <h3>Our Vision</h3>
+                    <p>To be a Centre of Excellence in research, skills training and innovation responsive to industry and community needs.</p>
+                </article>
+                <article class="card">
+                    <h3>Our Mission</h3>
+                    <p>To promote technical and vocational education, scientific inquiry and technological competence for meaningful employment and local development.</p>
+                </article>
+                <article class="card">
+                    <h3>Core Values</h3>
+                    <ul>
+                        <li>Relevance</li>
+                        <li>Excellence</li>
+                        <li>Equity</li>
+                        <li>Quality</li>
+                        <li>Integrity</li>
+                    </ul>
+                </article>
+            </div>
+        </section>
+
+        <section class="container section" style="padding-top:0;">
+            <div class="section-head" style="margin-bottom:20px;">
+                <div>
+                    <p class="eyebrow">Why Kitutu Chache</p>
+                    <h2 style="margin:0; font-size:clamp(30px, 3vw, 48px);">Practical training, strong outcomes.</h2>
+                </div>
+            </div>
+            <div class="stats-strip">
+                <article class="stat-card">
+                    <div class="stat-number">2023</div>
+                    <p>Years of service to technical education in the region</p>
+                </article>
+                <article class="stat-card">
+                    <div class="stat-number">9</div>
+                    <p>Departments spanning engineering, business and applied sciences</p>
+                </article>
+                <article class="stat-card">
+                    <div class="stat-number">70+</div>
+                    <p>Programmes across artisan, certificate and diploma pathways</p>
+                </article>
+                <article class="stat-card">
+                    <div class="stat-number">TVETA</div>
+                    <p>Aligned to Kenya’s national TVET agenda and industry needs</p>
+                </article>
+            </div>
+        </section>
+
+        <section class="container section" style="padding-top:0;">
+            <div class="split">
+                <div>
+                    <p class="eyebrow">Popular pathways</p>
+                    <h2 style="margin:0 0 22px; font-size:clamp(30px, 3vw, 48px);">Built for work, entrepreneurship and progression.</h2>
+                    <div class="mini-grid">
+                        <article class="mini-card">
+                            <h3>Engineering</h3>
+                            <p>Electrical, mechanical, civil and electronics programmes focused on hands-on technical competence.</p>
+                        </article>
+                        <article class="mini-card">
+                            <h3>Business</h3>
+                            <p>Accounting, office administration, supply chain and marketing foundations for the modern workplace.</p>
+                        </article>
+                        <article class="mini-card">
+                            <h3>ICT</h3>
+                            <p>Digital and computer literacy pathways that equip learners for modern service and technical roles.</p>
+                        </article>
+                    </div>
+                </div>
+                <aside class="card" style="align-self: stretch;">
+                    <h3>Quick facts</h3>
+                    <p><strong>Intakes:</strong> January and September</p>
+                    <p><strong>Admission:</strong> Online application and secure payment via the official website</p>
+                    <p><strong>Student support:</strong> Portal, fee statements, academic sessions and reporting information</p>
+                    <a href="admissions.html" class="button primary" style="margin-top:8px;">Learn More</a>
+                </aside>
+            </div>
+        </section>
+
+        <section class="container section" style="padding-top:0;">
+            <div class="cta-box">
+                <div>
+                    <p class="eyebrow" style="margin-bottom:10px;">Ready to apply?</p>
+                    <h3>Start your application in minutes.</h3>
+                </div>
+                <div style="display:flex; gap:12px; flex-wrap:wrap;">
+                    <a href="admissions.html" class="button primary">Admissions</a>
+                    <a href="/intake-form.html" class="button primary" style="background:#333;">Online Form</a>
+                    <a href="/staff/" class="button primary" style="background:#1b5e7d;">Staff & Admin Login</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container footer-grid">
+            <div>
+                <strong>Kitutu Chache Technical and Vocational College</strong><br>
+                P.O. Box 376 - 40200, Kisii, Kenya
+            </div>
+            <div class="footer-links">
+                <span>Mobile: +254774703453</span>
+                <span>Email: kitutuchachetvc@gmail.com</span>
+                <a href="https://maps.google.com/?q=Kitutu+Chache+Technical+and+Vocational+College+Kisii+Kenya" target="_blank" rel="noreferrer">Open in Google Maps</a>
+            </div>
+            <div class="footer-links">
+                <a href="about.html">About</a>
+                <a href="courses.html">Courses</a>
+                <a href="admissions.html">Admissions</a>
+                <a href="/staff/">Staff & Admin</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="assets/home.js"></script>
+</body>
+</html>
